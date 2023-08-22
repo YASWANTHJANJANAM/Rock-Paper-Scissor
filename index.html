@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Booleans</title>
+    <style>
+      body{
+        background-color: rgb(25, 25, 25);
+        color:white;
+        font-family: Arial;
+      }
+      .flex-container {
+        display: flex;
+        flex-direction: row;
+      }
+      .flex-container > div {
+        background-color: transparent;
+        width: 1000px;
+        margin: 15px;
+      }
+      .title{
+        font-size: 30px;
+        font-weight: bold;
+
+      }
+      .sentence{
+        margin-left: 50px;
+      }
+      .move-icon{
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+      }
+      .move-button{
+        background-color: transparent;
+        border: 3px solid yellow ;
+        width: 120px;
+        height:120px;
+        border-radius: 60px;
+        margin-left: 5px;
+        margin-right: 20px;
+
+      }
+      .result{
+        font-size: 35px;
+        font-weight: solid;
+        margin-top: 15px;
+      }
+      .reset-button{
+        font-size: 20px;
+        font-weight: solid;
+        background-color:orange;
+        color: white;
+        margin-top: 40px;
+        width: 120px;
+        height: 40px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex-container">
+      <button class="move-button" onclick="rps('Rock')"><img src="images/Rock.png" alt="Rock" class="move-icon"></button>
+      <button class="move-button" onclick="rps('Paper')"><img src="images/Paper.png" alt="Paper" class="move-icon"></button>
+      <button class="move-button" onclick="rps('Scissor')"><img src="images/Scissor.png" alt="Scissor" class="move-icon"></button>
+      <button onclick="zero()" class="reset-button">Reset</button>
+    </div>
+    <h1 class="sentence">Rock Paper Scissors</h1>
+    
+    <p class="js-displayresults sentence"></p><br>
+    <p class="js-displayresult sentence"></p>
+    <script>
+      
+      let computerpick;
+      let pick;
+      let t=0;
+      let w=0;
+      let l=0;
+
+      function rps(state){
+        if(Math.random()>=0 && Math.random()<1/3){
+          computerpick='Rock';
+        }
+        else if (Math.random()>=1/3 && Math.random()<2/3){
+          computerpick='Paper';
+        }
+        else if (Math.random()>=2/3 && Math.random()<1) {
+          computerpick='Scissor';
+        }
+        if (state===computerpick){
+          t+=1;
+        }
+        else if (state==='Rock' && computerpick==='paper'){
+          l+=1;
+        }
+        else if (state==='Rock' && computerpick==='Scissor'){
+          w+=1;
+        }
+        else if (state==='Paper'&& computerpick==='Rock'){
+          w++;
+        }
+        else if (state==='Paper' && computerpick==='Scissor'){
+          l++;
+        }
+        else if (state==='Scissor' && computerpick==='paper'){
+          w++;
+        }
+        else if (state==='Scissor' && computerpick==='Rock'){
+          l++;
+        }
+        document.querySelector('.js-displayresults').innerHTML=`Your Pick <img src="images/${state}.png" alt="Rock" class="move-icon"> <img src="images/${computerpick}.png" alt="Rock" class="move-icon"> Computer Pick`;
+        document.querySelector('.js-displayresult').innerHTML=`wins:  ${w},  loses:  ${l},   tie:  ${t}`  
+      }
+      function zero(){
+        w=0;
+        t=0;
+        l=0;
+        document.querySelector('.js-displayresult').innerHTML=`wins:  ${w},  loses:  ${l},   tie:  ${t}`
+      }
+    </script>
+  </body>
+</html>
